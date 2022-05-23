@@ -310,30 +310,45 @@ public class ZooPanel extends JPanel implements Runnable{
         {
             for (Animal animal : animalArrayList) { // going through the entire array
 
+                //if the current animal eats plants nd there is plant on the screen
                 if (plant!=null && animal.getDiet().canEat(plant.getFoodType()))
                 {
+                    //The X-axis goes right: if the animal is on the right side of the plant, and it goes right, I want
+                    // it to go to the opposite way, in order to eat the plant. if not, keep going on the same path.
                     if(animal.getLocation().GetX()>plant.getLocation().GetX())
                         animal.setX_dir(-1);
                     else
                         animal.setX_dir(1);
 
+                    //The Y-axis goes down: If the animal is under the plant, I want it to go up. Means I want
+                    // it to go to the opposite way, in order to eat the plant. if not, keep going on the same path
                     if(animal.getLocation().GetY()>plant.getLocation().GetY())
                         animal.setY_dir(-1);
                     else
                         animal.setY_dir(1);
 
+                    //if the hor speed of the animal is too bigger then the location of the plant,
+                    // then the animal can accidentally skip the plant, so:
                     if(Math.abs(animal.getLocation().GetX()-plant.getLocation().GetX())<=animal.getHorSpeed() && animal.getHorSpeed()!=0)
                     {
+                        //set the location to be the same location as the plant in the X-axis,
+                        // and keep the same location of the animal at ht ey-axis
                         animal.setLocation(new Point(plant.getLocation().GetX(),animal.getLocation().GetY()));
 
+                        //I want the animal to stop move on the x-axis for this eating, in order to make sure that
+                        // the animal will not skip the food, so first I keep the hor speed for later.
                         animal.setoldHspeed(animal.getHorSpeed());
 
+                        //then I set it to 0, just until the animal will eat the food.
                         animal.setHorSpeed(0);
 
                     }
 
+                    //if the ver speed of the animal is too bigger then the location of the plant,
+                    // then the animal can accidentally skip the plant, so:
                     if(Math.abs(animal.getLocation().GetY()-plant.getLocation().GetY())<=animal.getVerSpeed()&&animal.getVerSpeed()!=0)
                     {
+                        //same as the x-axis.(up)
                         animal.setLocation(new Point(animal.getLocation().GetX(),plant.getLocation().GetY()));
 
                         animal.setoldVspeed(animal.getVerSpeed());
@@ -342,7 +357,8 @@ public class ZooPanel extends JPanel implements Runnable{
                     }
 
                 }
-
+                
+                //Same as plant. In case the animal eats meat instead.
                 if (meat!=null && animal.getDiet().canEat(meat.getFoodType()))
                 {
                     if(animal.getLocation().GetX()>meat.getLocation().GetX())
@@ -376,12 +392,8 @@ public class ZooPanel extends JPanel implements Runnable{
 
                 }
 
-                if(animal.getHorSpeed()==0 && plant==null && meat==null)
-                    animal.setHorSpeed(animal.getoldHspeed());
 
-                if(animal.getVerSpeed()==0&&plant==null&&meat==null)
-                    animal.setVerSpeed(animal.getoldVspeed());
-
+                //eating the food
                 if (animal.isChange()) // if there's a change in animal coordinates
                 {
                     repaint();
@@ -416,6 +428,15 @@ public class ZooPanel extends JPanel implements Runnable{
                         }
                     }
                 }
+                //after eating the food: the food is null and because I want the animal to keep going on the same path
+                //as it was before the eating. if I had to move the animal with only one of the speeds (hor/ver),
+                //so it means I made the other speed (ver/ hor) to be 0 before, so now I want to update the speed
+                //again to be the original speed required by the user.
+                if(animal.getHorSpeed()==0 && plant==null && meat==null)
+                    animal.setHorSpeed(animal.getoldHspeed());
+
+                if(animal.getVerSpeed()==0&&plant==null&&meat==null)
+                    animal.setVerSpeed(animal.getoldVspeed());
             }
         }
 
