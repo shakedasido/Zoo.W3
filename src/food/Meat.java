@@ -1,12 +1,9 @@
 package food;
-
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
 import graphics.IDrawable;
 import graphics.ZooPanel;
 import mobility.Ilocatable;
@@ -47,7 +44,6 @@ public class Meat implements IEdible, Ilocatable, IDrawable{
         img=image;
 
     }
-    public String getPath() {return"assignment2_pictures//meat.gif";}
 
     @Override
     public void drawObject(Graphics g) {
@@ -57,7 +53,7 @@ public class Meat implements IEdible, Ilocatable, IDrawable{
     @Override
     public String getColor() {
         // TODO Auto-generated method stub
-        return null;
+        return "red";
     }
 
     @Override

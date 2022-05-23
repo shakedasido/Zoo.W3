@@ -9,7 +9,7 @@ import java.awt.Graphics;
  * @see ZooPanel
  */
 public interface IDrawable {
-    String PICTURE_PATH = "C:\\Users\\david\\zoo_w3\\src\\photos\\";
+    String PICTURE_PATH = "src\\photos\\";
     void loadImages(String nm);
     void drawObject (Graphics g);
     String getColor();

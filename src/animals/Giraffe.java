@@ -1,5 +1,4 @@
 package animals;
-
 import food.EFoodType;
 import graphics.ZooPanel;
 import diet.*;
@@ -28,38 +27,27 @@ public class Giraffe extends Animal{
         super("Giraffe", size, size*2.2, horSpeed, verSpeed, col, pan);
         //here we create a new point, so we use new, in order to create a new default value.
         setLocation(new Point(50,0));
-        this.SetDiet(new Herbivore());
+        this.setDiet(new Herbivore());
         this.SetWeight(size*2.2);
         loadImages("grf");
         neckLength = 1.5;
     }
 
     public Giraffe(String s) {this(s,def_location);}
-
     public Giraffe(String s, Point p) {this(s,p,def_weight);}
-
-    public EFoodType getFoodType() { return EFoodType.MEAT; }
-
-    public double getNeckLength() {return this.neckLength;}
-
     public Giraffe(String s, Point p, double w)
     {
         this(s,p,w,defNeckLength);
     }
-
     public Giraffe(String s, Point p, double w, double n)
     {
         super(s,p);
-
-
         this.SetWeight(w);
-
         this.setNeckLength(n);
-
         this.setDiet(new Herbivore());
-
     }
 
+    //setters
     public boolean setNeckLength(double t)
     {
         boolean x=true;
@@ -79,6 +67,11 @@ public class Giraffe extends Animal{
         return x;
     }
 
+    //getters
+    public EFoodType getFoodType() { return EFoodType.MEAT; }
+    public double getNeckLength() {return this.neckLength;}
+
+    //methods
     public String toString()
     {
         return  "[ Giraffe]: "+this.getAnimalName();

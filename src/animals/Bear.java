@@ -20,12 +20,11 @@ public class Bear extends Animal {
     /**
      * Constructor for the bear's attributes. It creates a specific bear. and defines his attributes.
      */
-
     public Bear(int size, String col, int horSpeed, int verSpeed, ZooPanel pan)
     {
         super("Bear", size, size*1.5, horSpeed, verSpeed, col, pan);
         setLocation(new Point(100, 5));
-        this.SetDiet(new Omnivore());
+        this.setDiet(new Omnivore());
         this.SetWeight(size*1.5);
         loadImages("bea");
         furColor = "GREY";
@@ -39,19 +38,13 @@ public class Bear extends Animal {
     {
         super("Bear", size, size*1.5, horSpeed, verSpeed, col, pan);
         setLocation(new Point(x_dir,y_dir));
-        this.SetDiet(new Omnivore());
+        this.setDiet(new Omnivore());
         this.SetWeight(size*1.5);
         loadImages("bea");
         furColor = "GREY";
     }
 
-
-    /**
-     * Getter.
-     * @return the value of the attribute furColor as string .
-     */
-    public String GetFurColor() {return this.furColor;}
-
+    //setters
     /**
      * Setter.
      * @return boolean result.
@@ -68,7 +61,12 @@ public class Bear extends Animal {
         return false;
     }
 
+    //getters
+    /**
+     * Getter.
+     * @return the value of the attribute furColor as string .
+     */
+    public String GetFurColor() {return this.furColor;}
     public EFoodType getFoodType() {return EFoodType.MEAT;}
-
 
 }

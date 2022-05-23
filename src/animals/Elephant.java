@@ -4,13 +4,11 @@ import food.EFoodType;
 import graphics.ZooPanel;
 import mobility.Point;
 
-
-
 /**
  * A class representing an Elephant, which it is kind of animal, vegetable eater.
  * Extends class Animal.
  * @version 18/05/2022
- * @author  Shaked Asido, Tomer handali..
+ * @author  Shaked Asido, Tomer handali.
  * @see     Animal
  */
 public class Elephant extends Animal
@@ -24,7 +22,7 @@ public class Elephant extends Animal
     {
         super("Elephant", size, size*10, horSpeed, verSpeed, col, pan);
         setLocation(new Point(50, 90));
-        this.SetDiet(new Herbivore());
+        this.setDiet(new Herbivore());
         this.SetWeight(size*10);
         loadImages("elf");
     }
@@ -35,7 +33,7 @@ public class Elephant extends Animal
     {
         super("Elephant", size, size*10, horSpeed, verSpeed, col, pan);
         setLocation(new Point(x_dir,y_dir));
-        this.SetDiet(new Herbivore());
+        this.setDiet(new Herbivore());
         this.SetWeight(size*10);
         loadImages("elf");
     }

@@ -1,11 +1,4 @@
 package animals;
-
-/**
- * Java project: W3
- * @author  Shaked Asido: 315853150
- *          Tomer handali: 206751489
- * @campus: Ashdod.
- */
 import graphics.*;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -44,7 +37,13 @@ public abstract class Animal extends Mobile implements Runnable, IEdible, IDrawa
     protected Thread thread;
     protected boolean threadSuspended = false;
     private int new_x, new_y;
+    private int oldHspeed;
+    private int oldVspeed;
 
+    /**
+     * Constructor for the Animal's attributes. It initializes elements of an abstract animal, and then it will be
+     * sent to a specific animal to continue the animal creations
+     */
     public Animal(String kind, int size, double weight, int horSpeed, int verSpeed, String col, ZooPanel pan)
     {
         super(new Point(0,0));
@@ -61,26 +60,21 @@ public abstract class Animal extends Mobile implements Runnable, IEdible, IDrawa
         new_y =0;
     }
 
+    /**
+     * Constructor for the Animal's attributes. It initializes elements of an abstract animal, and then it will be
+     * sent to a specific animal to continue the animal creations
+     */
     public Animal(String s, Point p)
     {
         super(p);
-        setName(s);
-
+        setAnimalName(s);
     }
 
-    public Thread getThread() { return this.thread;}
+    //setters
+    private void setAnimalName(String s) {this.name=s;}
     public void setThread(Thread t) { thread=t;}
     public void setX_dir(int x) { x_dir = x;}
-
     public void setY_dir(int y) { y_dir = y;}
-
-    private boolean setName(String s) {
-        this.name=s;
-        return true;}
-    public double getWeight() { return this.weight;}
-
-    public String getAnimalName() {return this.name;}
-
     public boolean SetWeight(double weight)
     {
         boolean isSuccess = (weight >= 0);
@@ -91,14 +85,36 @@ public abstract class Animal extends Mobile implements Runnable, IEdible, IDrawa
         }
         return isSuccess;
     }
-
-    protected boolean setDiet(IDiet d)
+    public boolean setDiet(IDiet diet)
     {
-        this.diet=d;
-
+        this.diet=diet;
         return true;
-
     }
+    public void setChanges (boolean state) {this.coordChanged=state;}
+    public void setHorSpeed(int horSpeed) {this.horSpeed = horSpeed;}
+    public void setVerSpeed(int verSpeed) { this.verSpeed = verSpeed;}
+    public void setoldHspeed(int ohspeed) {this.oldHspeed=ohspeed;}
+    public void setoldVspeed(int ovspeed) {this.oldVspeed=ovspeed;}
+    @Override
+    public void setSuspended() { this.threadSuspended = true;}
+    public void setResumed() { this.threadSuspended = false;}
+
+    //getters
+    public String getAnimalName() {return this.name;}
+    public abstract EFoodType getFoodType();
+    public Thread getThread() { return this.thread;}
+    public int getEatDistance() {return this.EAT_DISTANCE;}
+    public String getColor() {return col;}
+    public int getEatCount() {return eatCount;}
+    public int getSize() {return this.size;}
+    public double getWeight() { return this.weight;}
+    public IDiet getDiet() {return this.diet;}
+    public boolean getChanges() {return this.coordChanged;}
+    public int getHorSpeed() {return this.horSpeed;}
+    public int getVerSpeed() {return this.verSpeed;}
+    public int getoldHspeed() {return this.oldHspeed;}
+    public int getoldVspeed() {return this.oldVspeed;}
+
 
     public boolean eat(IEdible other)
     {
@@ -116,6 +132,9 @@ public abstract class Animal extends Mobile implements Runnable, IEdible, IDrawa
         return x;
     }
 
+    @Override
+    public void eatInc() {eatCount++;}
+
     public double move(Point p)
     {
         double distance =super.move(p);
@@ -130,29 +149,7 @@ public abstract class Animal extends Mobile implements Runnable, IEdible, IDrawa
 
         return distance;
     }
-    public abstract EFoodType getFoodType();
 
-    public int getEatDistance() {return this.EAT_DISTANCE;}
-
-    @Override
-    public String getColor() {return col;}
-
-    @Override
-    public int getEatCount() {return eatCount;}
-
-    @Override
-    public void eatInc() {eatCount++;}
-
-    public int getSize() {return this.size;}
-
-    @Override
-    public boolean getChanges() {return this.coordChanged;}
-    public void setChanges (boolean state) {this.coordChanged=state;}
-
-    public int getHorSpeed() {return this.horSpeed;}
-    public int getVerSpeed() {return this.verSpeed;}
-
-    //nm=name
     @Override
     public void loadImages(String nm) {
         String color = this.col;
@@ -195,19 +192,6 @@ public abstract class Animal extends Mobile implements Runnable, IEdible, IDrawa
         else // animal goes to the left side
             g.drawImage(img2, this.getLocation().GetX(), this.getLocation().GetY() -size/10, size, size, pan);
     }
-
-    public boolean SetDiet(IDiet diet)
-    {
-        this.diet=diet;
-        return true;
-    }
-
-
-    @Override
-    public void setSuspended() { this.threadSuspended = true;}
-
-    @Override
-    synchronized public void setResumed() { this.threadSuspended = false;}
 
     public void start() { thread.start(); } //activates run()
 

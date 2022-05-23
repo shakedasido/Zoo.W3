@@ -1,10 +1,4 @@
 package mobility;
-/**
- * Java project: W3
- * @author  Shaked Asido: 315853150
- *          Tomer handali: 206751489
- * @campus: Ashdod.
- */
 
 /**
  * Defines a position on a two-dimensional axis.
@@ -45,33 +39,7 @@ public class Point {
         this.y=other.y;
     }
 
-
-    /**
-     * Getter.
-     * gets the attribute x.
-     * @return the value of the attribute x.
-     */
-    public int GetX() {return this.x;}
-
-    /**
-     * Getter.
-     * gets the attribute y.
-     * @return the value of the attribute y.
-     */
-    public int GetY() {return this.y;}
-
-    /**
-     * Gets animal and food type.
-     * Check if it's the correct type of food that the animal eats.
-     * if yes, The animal eats, and it gains wight.
-     * else, it doesn't gain any weight.
-     * @param p
-     *        represent a point from class Point.
-     *
-     * @return Boolean result. True- if the point is in the range, False- if not.
-     */
-    public static boolean checkBoundaries(Point p) { return p.x >= min_x && p.x <= max_x && p.y >= min_y && p.y <= max_y;}
-
+    //setters
     /**
      * Setter.
      * sets the attribute x.
@@ -98,18 +66,7 @@ public class Point {
         return true;
     }
 
-    public boolean setPoint(int x,int y)
-    {
-        if(!checkBoundaries(new Point(x,y)))
-            return false;
-
-        this.x=x;
-        this.y=y;
-
-        return true;
-    }
-
-    public boolean setpoint(Point other)
+    public boolean setPoint(Point other)
     {
         if(!checkBoundaries(other))
             return false;
@@ -120,8 +77,38 @@ public class Point {
         return true;
     }
 
+    //getters
+    /**
+     * Getter.
+     * gets the attribute x.
+     * @return the value of the attribute x.
+     */
+    public int GetX() {return this.x;}
+
+    /**
+     * Getter.
+     * gets the attribute y.
+     * @return the value of the attribute y.
+     */
+    public int GetY() {return this.y;}
+
+    //methods
+    /**
+     * Check if the animal is in the correct boundaries, so she will be able to eat her food.
+     * @param p
+     *        represent a point from class Point.
+     *
+     * @return Boolean result. True- if the point is in the range, False- if not.
+     */
+    public static boolean checkBoundaries(Point p) { return p.x >= min_x && p.x <= max_x && p.y >= min_y && p.y <= max_y;}
+
     public boolean equals(Point other) {return this.x == other.x && this.y == other.y;}
 
+    /**
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
     public String toString() {return ("( "+this.x+" , "+this.y+" )");}
 
 }

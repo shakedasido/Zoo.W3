@@ -1,13 +1,10 @@
 package plants;
-
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
-
 import javax.imageio.ImageIO;
-
 import food.EFoodType;
 import food.IEdible;
 import graphics.IDrawable;
@@ -16,28 +13,24 @@ import mobility.Ilocatable;
 import mobility.Point;
 
 /**
- * @author baroh
+ * Abstract class that defines the common features for all plants food type.
+ * The class implements IEdible, Ilocatable and IDrawable interfaces.
  *
+ * @version 18/05/2022
+ * @author  Shaked Asido, Tomer handali.
+ * @see Cabbage
  */
 public abstract class Plant implements IEdible, Ilocatable, IDrawable {
-    /**
-     *
-     */
+
     private ZooPanel pan;
     private BufferedImage img;
-
     private double height;
-    /**
-     *
-     */
     private Point location;
-    /**
-     *
-     */
     private double weight;
 
     /**
-     *
+     * Constructor for the Plant's attributes. It initializes elements of an abstract plant, and then it will be
+     * sent to a specific plant to continue the plant creations.
      */
     public Plant(ZooPanel p) {
         this.pan=p;
@@ -49,57 +42,11 @@ public abstract class Plant implements IEdible, Ilocatable, IDrawable {
         this.height = rand.nextInt(30);
         this.weight = rand.nextInt(12);
     }
-
-    /*
+    //setters
+    /**
      * (non-Javadoc)
      *
-     * @see food.IFood#getFoodtype()
-     */
-    public EFoodType getFoodType() {return EFoodType.VEGETABLE;}
-
-    /**
-     * @return
-     */
-    public double getHeight() {
-        return this.height;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see mobility.ILocatable#getLocation()
-     */
-    @Override
-    public Point getLocation() {
-        return this.location;
-    }
-
-    /**
-     * @return
-     */
-    public double getWeight() {
-        return weight;
-    }
-
-    /**
-     * @param height
-     * @return
-     */
-    public boolean setHeight(double height) {
-
-        boolean isSuccess = (height >= 0);
-        if (isSuccess) {
-            this.height = height;
-        } else {
-            this.height = 0;
-        }
-        return isSuccess;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see mobility.ILocatable#setLocation(mobility.Point)
+     * @see mobility.Ilocatable#setLocation(mobility.Point)
      */
     @Override
     public boolean setLocation(Point newLocation) {
@@ -110,22 +57,29 @@ public abstract class Plant implements IEdible, Ilocatable, IDrawable {
         return isSuccess;
     }
 
+    //getters
     /**
-     * @param weight
-     * @return boolean
+     * @see EFoodType
      */
-    public boolean setWeight(double weight) {
-        boolean isSuccess = (weight >= 0);
-        if (isSuccess) {
-            this.weight = weight;
-        } else {
-            this.weight = 0;
-        }
+    public EFoodType getFoodType() {return EFoodType.VEGETABLE;}
 
-        return isSuccess;
+    /**
+     * @return
+     */
+    public double getHeight() {
+        return this.height;
     }
 
+    /**
+     * @see mobility.Ilocatable
+     */
+    @Override
+    public Point getLocation() {
+        return this.location;
+    }
+    public String getColor() {return "Green";}
 
+    //methods
     @Override
     public void loadImages(String nm) {
 
@@ -141,14 +95,12 @@ public abstract class Plant implements IEdible, Ilocatable, IDrawable {
     public void drawObject(Graphics g)
     {g.drawImage(img, location.GetX()+50, location.GetY(), 50, 50, pan);}
 
-    public String getColor() {return "Green";}
 
-    /*
+    /**
      * (non-Javadoc)
      *
      * @see java.lang.Object#toString()
      */
-
     @Override
     public String toString() {
         return "[" + this.getClass().getSimpleName() + "] ";

@@ -1,12 +1,5 @@
 package animals;
 import java.util.Random;
-
-/**
- * Java project: W3
- * @author  Shaked Asido: 315853150.
- *          Tomer handali 206751489
- * @campus: Ashdod.
- */
 import diet.*;
 import food.EFoodType;
 import graphics.ZooPanel;
@@ -34,7 +27,7 @@ public class Lion extends Animal{
     {
         super("Lion", size, size*0.8, horSpeed, verSpeed, col, pan);
         setLocation(new Point(20,0));
-        this.SetDiet(new Carnivore());
+        this.setDiet(new Carnivore());
         this.SetWeight(size*0.8);
         loadImages("lio");
     }
@@ -46,41 +39,30 @@ public class Lion extends Animal{
     {
         super("Lion", size, size*0.8, horSpeed, verSpeed, col, pan);
         setLocation(new Point(x_dir,y_dir));
-        this.SetDiet(new Carnivore());
+        this.setDiet(new Carnivore());
         this.SetWeight(size*0.8);
         loadImages("lio");
     }
-
-    public Lion(String s)
-    {
-        this(s,def_location);
-
-    }
-
-    public Lion(String s, Point p)
-    {
-        this(s,p,def_weight);
-
-    }
-
-    @Override
-    public EFoodType getFoodType() {return EFoodType.NOTFOOD;}
-
-    public Lion(String s, Point p,double w)
-    {
-        this(s,p,w,defScars);
-
-    }
+    public Lion(String s) { this(s,def_location);}
+    public Lion(String s, Point p) { this(s,p,def_weight);}
+    public Lion(String s, Point p,double w) { this(s,p,w,defScars);}
     public Lion(String s, Point p, double w, int scars)
     {
         super(s,p);
-
-
         this.SetWeight(w);
         this.setScars(scars);
         this.setDiet(new Carnivore());
     }
 
+    //setters
+    private boolean setScars(int s) { return true;}
+
+    //getters
+    public int getScars() {return this.scarCount;}
+    @Override
+    public EFoodType getFoodType() {return EFoodType.NOTFOOD;}
+
+    //methods
     public void addScar()
     {
         Random rand = new Random();
@@ -89,18 +71,8 @@ public class Lion extends Animal{
             setScars(this.scarCount+1);
 
     }
-
-    private boolean setScars(int s)
-    {
-
-        return true;
-    }
-
-    public int getScars() {return this.scarCount;}
-
     public String toString()
     {
         return "[ Lion]: "+this.getAnimalName();
     }
-
 }

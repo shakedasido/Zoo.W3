@@ -2,8 +2,7 @@ package graphics;
 
 /**
  * Java project: W3
- * @author  Shaked Asido: 315853150
- *          Tomer handali: 206751489
+ * @author  Shaked Asido, Tomer handali.
  * @campus: Ashdod.
  */
 import animals.*;
@@ -30,7 +29,7 @@ import java.util.ArrayList;
  */
 public class ZooPanel extends JPanel implements Runnable{
     private BufferedImage img= null;
-    String PICTURE_PATH = "C:\\Users\\david\\zoo_w3\\src\\photos\\"; //Enter your own path!!
+    String PICTURE_PATH = "src\\photos\\"; //Enter your own path!!
     private final ArrayList<Animal> animalArrayList = new ArrayList<>(); //List of all the animals, max 10
     private int totalEatingAmount = 0;
     private EFoodType foodType = EFoodType.NOTFOOD;
@@ -310,6 +309,78 @@ public class ZooPanel extends JPanel implements Runnable{
         synchronized(this)
         {
             for (Animal animal : animalArrayList) { // going through the entire array
+
+                if (plant!=null && animal.getDiet().canEat(plant.getFoodType()))
+                {
+                    if(animal.getLocation().GetX()>plant.getLocation().GetX())
+                        animal.setX_dir(-1);
+                    else
+                        animal.setX_dir(1);
+
+                    if(animal.getLocation().GetY()>plant.getLocation().GetY())
+                        animal.setY_dir(-1);
+                    else
+                        animal.setY_dir(1);
+
+                    if(Math.abs(animal.getLocation().GetX()-plant.getLocation().GetX())<=animal.getHorSpeed() && animal.getHorSpeed()!=0)
+                    {
+                        animal.setLocation(new Point(plant.getLocation().GetX(),animal.getLocation().GetY()));
+
+                        animal.setoldHspeed(animal.getHorSpeed());
+
+                        animal.setHorSpeed(0);
+
+                    }
+
+                    if(Math.abs(animal.getLocation().GetY()-plant.getLocation().GetY())<=animal.getVerSpeed()&&animal.getVerSpeed()!=0)
+                    {
+                        animal.setLocation(new Point(animal.getLocation().GetX(),plant.getLocation().GetY()));
+
+                        animal.setoldVspeed(animal.getVerSpeed());
+
+                        animal.setVerSpeed(0);
+                    }
+
+                }
+
+                if (meat!=null && animal.getDiet().canEat(meat.getFoodType()))
+                {
+                    if(animal.getLocation().GetX()>meat.getLocation().GetX())
+                        animal.setX_dir(-1);
+                    else
+                        animal.setX_dir(1);
+
+                    if(animal.getLocation().GetY()>meat.getLocation().GetY())
+                        animal.setY_dir(-1);
+                    else
+                        animal.setY_dir(1);
+
+                    if(Math.abs(animal.getLocation().GetX()-meat.getLocation().GetX())<=animal.getHorSpeed() && animal.getHorSpeed()!=0)
+                    {
+                        animal.setLocation(new Point(meat.getLocation().GetX(),animal.getLocation().GetY()));
+
+                        animal.setoldHspeed(animal.getHorSpeed());
+
+                        animal.setHorSpeed(0);
+
+                    }
+
+                    if(Math.abs(animal.getLocation().GetY()-meat.getLocation().GetY())<=animal.getVerSpeed()&&animal.getVerSpeed()!=0)
+                    {
+                        animal.setLocation(new Point(animal.getLocation().GetX(),meat.getLocation().GetY()));
+
+                        animal.setoldVspeed(animal.getVerSpeed());
+
+                        animal.setVerSpeed(0);
+                    }
+
+                }
+
+                if(animal.getHorSpeed()==0 && plant==null && meat==null)
+                    animal.setHorSpeed(animal.getoldHspeed());
+
+                if(animal.getVerSpeed()==0&&plant==null&&meat==null)
+                    animal.setVerSpeed(animal.getoldVspeed());
 
                 if (animal.isChange()) // if there's a change in animal coordinates
                 {

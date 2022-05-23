@@ -1,10 +1,4 @@
 package graphics;
-/**
- * Java project: W3
- * @author  Shaked Asido: 315853150
- *          Tomer handali: 206751489
- * @campus: Ashdod.
- */
 import java.awt.*;
 import javax.swing.*;
 
@@ -20,7 +14,7 @@ public class ZooFrame extends JFrame {
     public ZooFrame() {
 
         setTitle("Zoo");
-        setSize(1000, 650);
+        setSize(900, 650);
         ZooPanel zooPanel=new ZooPanel();
         add(zooPanel);
         Thread thread1 = new Thread(zooPanel);
